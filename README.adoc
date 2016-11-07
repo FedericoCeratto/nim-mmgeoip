@@ -1,0 +1,57 @@
+## mmgeoip
+
+MaxMind GeoIP library for Nim.
+
+The library uses the link:https://github.com/maxmind/geoip-api-c[official libgeoip C library].
+
+### Usage
+
+
+[source,bash]
+----
+sudo apt-get install libgeoip1
+nimble install mmgeoip
+----
+
+[source,nim]
+----
+# Country lookup
+let g = GeoIP("/usr/share/GeoIP/GeoIP.dat")
+echo g.country_code3_by_addr("8.8.8.8")
+echo g.country_code_by_addr("8.8.8.8")
+echo g.country_name_by_addr("8.8.8.8")
+echo g.id_by_addr("8.8.8.8")
+g.delete()
+
+# using MEMORY_CACHE
+let g = GeoIP("/usr/share/GeoIP/GeoIP.dat", MEMORY_CACHE)
+echo g.country_code3_by_addr("8.8.8.8")
+
+# City lookup
+let g = GeoIP("/usr/share/GeoIP/GeoLiteCity.dat")
+let r = g.record_by_addr("8.8.8.8")
+echo r.city
+echo r.latitude
+echo $r.longitude
+echo r.area_code
+echo r.country_code
+echo r.country_code3
+echo r.postal_code
+echo r.region
+g.delete()
+
+# AS number lookup
+let g = GeoIP("/usr/share/GeoIP/GeoIPASNum.dat")
+echo g.org_by_addr("8.8.8.8")
+g.delete()
+
+# Same for IPv6
+let g = GeoIP("/usr/share/GeoIP/GeoIPASNumv6.dat")
+echo g.org_by_addr_v6("2a00:1450:400b:c03::8b")
+g.delete()
+----
+
+### Contributing
+
+Testing and PRs are welcome.
+
