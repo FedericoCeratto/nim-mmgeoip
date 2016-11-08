@@ -2,7 +2,7 @@
 
 MaxMind GeoIP library for Nim.
 
-The library uses the link:https://github.com/maxmind/geoip-api-c[official libgeoip C library].
+The library uses the link:https://github.com/maxmind/geoip-api-c[official libgeoip C library] to achieve good performance. Using in-memory caching, an IP address lookup takes less than 0.2 us on an Intel i5.
 
 ### Usage
 
@@ -26,6 +26,7 @@ g.delete()
 # using MEMORY_CACHE
 let g = GeoIP("/usr/share/GeoIP/GeoIP.dat", MEMORY_CACHE)
 echo g.country_code3_by_addr("8.8.8.8")
+g.delete()
 
 # City lookup
 let g = GeoIP("/usr/share/GeoIP/GeoLiteCity.dat")
